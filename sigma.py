@@ -1,6 +1,21 @@
-import math
+"""
+Do not use multiple variables
+Run with python 3
+"""
+
+def explicitize_multiplication(formula):
+    edited_formula = ""
+    for i in range(0, len(formula)-1):
+        edited_formula += formula[i]
+        if formula[i].isnumeric():
+            if formula[i+1].isalpha():
+                edited_formula += '*'
+    edited_formula += formula[-1]
+    return edited_formula
+
 
 def sigma(start, end, formula):
+    formula = explicitize_multiplication(formula)
     sum = 0
     for i in range(start, end+1):
         substituted = ""
@@ -13,24 +28,23 @@ def sigma(start, end, formula):
                 substituted += char
 
         sum += eval(substituted)
-
-    
     return sum
 
 
 def main():
-    
     start = int(input("Enter the first value of n (n is the index of summation):\n"))
     end = int(input("\nEnter the last value of n:\n"))
-    formula = input("\nEnter the formula for the terms with only one or zero variables.\n\n\
+    formula = input("\nEnter the formula for the terms.\n\
 Usable symbols are:\n+, -, *, /, ^, and (). \n\n\
-Note that all multiplications must be explicit, which means that expressions such as 3x or 3n must be written as 3*x or 3*n respectively.\n\n\
-Formula:")
+Formula:\n")
     
     print("\ncalculating...\n")
 
     result = sigma(start, end, formula)
-    print(result)
+    if result > 1e10:
+        print("{:e}".format(result))
+    else:
+        print(result)
 
 
 if __name__ == "__main__":
